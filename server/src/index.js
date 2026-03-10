@@ -1,35 +1,22 @@
 import express from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import { router as meetingsRouter } from './routes/meetings.js';
-import { router as teamsRouter } from './routes/teams.js';
-import { initDatabase } from './config/database.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-dotenv.config({ path: join(__dirname, '../../.env') });
+import logger from './utils/logger.js';
+import meetingsRouter from './routes/meetings.js';
 
 const app = express();
-const port = process.env.PORT || 3010;
+const PORT = process.env.PORT || 5000;
 
-// Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Routes
 app.use('/api/meetings', meetingsRouter);
-app.use('/api/development-groups', teamsRouter);
 
-// Initialize database and start server
-initDatabase().then(() => {
-  app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-  });
-}).catch(err => {
-  console.error('Failed to initialize database:', err);
-  process.exit(1);
+// בדיקת חיבור
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
+app.listen(PORT, () => {
+  logger.info(`Server is running on port ${PORT}`);
 }); 

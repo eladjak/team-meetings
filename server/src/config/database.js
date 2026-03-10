@@ -1,67 +1,85 @@
+/**
+ * הגדרות חיבור לבסיס הנתונים
+ * כולל פול חיבורים וניהול שגיאות
+ * 
+ * @module database
+ */
+
 import mysql from 'mysql2/promise';
-import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import logger from '../../utils/logger';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const envPath = join(__dirname, '../../.env');
-console.log('Loading .env from:', envPath);
-
-dotenv.config({ path: envPath });
-
-// Debug: print environment variables
-console.log('Environment variables:', {
-  DB_HOST: process.env.DB_HOST,
-  DB_USER: process.env.DB_USER,
-  DB_NAME: process.env.DB_NAME,
-  // לא מדפיסים את הסיסמה מטעמי אבטחה
-});
-
-const {
-  DB_HOST,
-  DB_USER,
-  DB_PASSWORD,
-  DB_NAME
-} = process.env;
-
-if (!DB_HOST || !DB_USER || !DB_PASSWORD || !DB_NAME) {
-  console.error('Missing database configuration. Required variables:', {
-    DB_HOST: !!DB_HOST,
-    DB_USER: !!DB_USER,
-    DB_PASSWORD: !!DB_PASSWORD,
-    DB_NAME: !!DB_NAME
-  });
-  process.exit(1);
-}
-
-const pool = mysql.createPool({
-  host: DB_HOST,
-  user: DB_USER,
-  password: DB_PASSWORD,
-  database: DB_NAME,
+// הגדרות חיבור מה-.env
+const dbConfig = {
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'app_user',
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME || 'team_meetings',
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
-});
+  queueLimit: 0,
+  timezone: 'Asia/Jerusalem'
+};
 
-export const initDatabase = async () => {
+// יצירת פול חיבורים
+const pool = mysql.createPool(dbConfig);
+
+// בדיקת חיבור ראשונית
+pool.getConnection()
+  .then(connection => {
+    logger.info('Database: Successfully connected to MySQL');
+    connection.release();
+  })
+  .catch(error => {
+    logger.error('Database: Error connecting to MySQL', { error });
+    process.exit(1);
+  });
+
+/**
+ * ביצוע שאילתה עם ניהול שגיאות
+ * @param {string} query - שאילתת SQL
+ * @param {Array} params - פרמטרים לשאילתה
+ * @returns {Promise} תוצאת השאילתה
+ */
+export const executeQuery = async (query, params = []) => {
   try {
-    console.log('Attempting to connect to database...');
-    await pool.query('SELECT 1');
-    console.log('Database connection successful');
+    logger.debug('Database: Executing query', { query, params });
+    const [results] = await pool.execute(query, params);
+    return results;
   } catch (error) {
-    console.error('Error connecting to database:', {
-      code: error.code,
-      errno: error.errno,
-      sqlMessage: error.sqlMessage,
-      host: DB_HOST,
-      user: DB_USER,
-      database: DB_NAME
-    });
+    logger.error('Database: Query execution error', { error, query, params });
     throw error;
   }
 };
 
-export default pool;
+/**
+ * ביצוע טרנזקציה
+ * @param {Function} callback - פונקציה המכילה את פעולות הטרנזקציה
+ * @returns {Promise} תוצאת הטרנזקציה
+ */
+export const executeTransaction = async (callback) => {
+  const connection = await pool.getConnection();
+  
+  try {
+    await connection.beginTransaction();
+    logger.debug('Database: Starting transaction');
+    
+    const result = await callback(connection);
+    
+    await connection.commit();
+    logger.debug('Database: Transaction committed');
+    
+    return result;
+  } catch (error) {
+    await connection.rollback();
+    logger.error('Database: Transaction rolled back', { error });
+    throw error;
+  } finally {
+    connection.release();
+  }
+};
+
+export default {
+  pool,
+  executeQuery,
+  executeTransaction
+};

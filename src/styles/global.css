@@ -1,0 +1,53 @@
+/* === כללי === */
+:root {
+  --primary-color: #1976d2;
+  --secondary-color: #dc004e;
+  --success-color: #2ecc71;
+  --warning-color: #f1c40f;
+  --error-color: #e74c3c;
+  --text-primary: rgba(0, 0, 0, 0.87);
+  --text-secondary: rgba(0, 0, 0, 0.6);
+}
+
+/* === עיצוב בסיסי === */
+body {
+  margin: 0;
+  font-family: 'Assistant', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  direction: rtl;
+}
+
+/* === אנימציות === */
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+
+/* === לוח שנה === */
+.rbc-calendar {
+  direction: rtl;
+  height: 100%;
+}
+
+.rbc-event {
+  background-color: var(--primary-color);
+  border-radius: 4px;
+  padding: 2px 5px;
+}
+
+.rbc-today {
+  background-color: rgba(25, 118, 210, 0.1);
+} 

@@ -1,75 +1,54 @@
-# 📅 מערכת ניהול פגישות צוות
+# HaDerech Team Meetings 📅
 
-מערכת מודרנית וידידותית למשתמש לניהול פגישות צוות, המאפשרת תיאום וניהול פגישות בצורה יעילה ונוחה.
+מערכת לניהול פגישות צוות מתקדמת, נגישה ויעילה.
 
-## ✨ תכונות עיקריות
+## תכונות עיקריות 🌟
 
-- 📆 לוח שנה אינטראקטיבי ואינטואיטיבי
-- 👥 ניהול קבוצות פיתוח
-- 🏢 ניהול חדרי פגישות
-- 📱 ממשק משתמש רספונסיבי
-- 🌐 תמיכה מלאה בעברית
-- ⚡ ביצועים מהירים
-- 🎨 עיצוב מודרני ונקי
+- לוח שנה אינטראקטיבי
+- תצוגות מרובות (יומי, שבועי, חודשי)
+- ניהול משתתפים וחדרים
+- התראות בזמן אמת
+- נגישות מלאה
+- תמיכה בעברית ו-RTL
+- אינטגרציה עם יומנים חיצוניים
 
-## 🚀 טכנולוגיות
+## התקנה 🚀
 
-### צד לקוח
-- React 18
-- Material-UI 5
-- FullCalendar
-- Formik & Yup
-- Axios
-- SweetAlert2
-- date-fns
+1. התקנת תלויות
+npm install
+הרצת סביבת פיתוח
+npm run dev
+בנייה לייצור
+npm run build
 
-### צד שרת
-- Node.js
-- Express
+## 🔧 קונפיגורציה
+המערכת משתמשת בקבצי הגדרות הבאים:
+- `constants.js` - הגדרות כלליות (חדרים, צוותים, וכו')
+- `theme.js` - הגדרות עיצוב
+- `.env` - משתני סביבה
+
+## טכנולוגיות 💻
+
+- React + Vite
+- Material-UI
+- Node.js + Express
 - MySQL
-- CORS
+- Socket.IO
+- JWT
 
-## 💻 התקנה והפעלה
+## תיעוד 📚
 
-### דרישות מקדימות
-- Node.js (גרסה 14 ומעלה)
-- MySQL (גרסה 5.7 ומעלה)
+- [מדריך פיתוח](docs/DEVELOPMENT.md)
+- [מדריך נגישות](docs/ACCESSIBILITY_GUIDE.md)
+- [מפרט API](docs/API_SPEC.md)
 
-### שלבי התקנה
+## 📚 תיעוד נוסף
+- [מסמך דרישות](./docs/REQUIREMENTS.md)
+- [מדריך פיתוח](./docs/DEVELOPMENT.md)
+- [מדריך תרומה](./docs/CONTRIBUTING.md)
 
-1. שכפל את המאגר:
-git clone https://github.com/eladjak/team-meetings.git
-cd team-meetings
+## 🤝 תרומה
+נשמח לקבל תרומות! אנא קראו את [מדריך התרומה](./docs/CONTRIBUTING.md) שלנו.
 
-2. התקן את החבילות הנדרשות:
-npm install
-cd server
-npm install
-
-3. הגדר את קובץ .env:
-cp .env.example .env
-ערוך את הקובץ עם פרטי החיבור שלך
-
-4. הפעל את השרת:
-cd server
-npm run dev
-
-5. הפעל את הלקוח:
-cd ..
-npm run dev
-
-מפתח
-
-אלעד יעקובוביץ', מפתח Full-stack עם הסמכה ממכללת ג'ון ברייס.
-
-פרטי קשר
-* אימייל: eladhiteclearning@gmail.com
-* LinkedIn: linkedin.com/in/eladyaakobovitchcodingdeveloper
-* GitHub: github.com/eladjak
-* טלפון: 052-542-7474
-
-רישיון
-
-MIT License
-
-נבנה באהבה על ידי אלעד יעקובוביץ'
+## 📄 רישיון
+MIT

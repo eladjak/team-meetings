@@ -1,236 +1,275 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 1rem;
-  height: calc(100vh - 2rem);
+/* 
+ * App.css
+ * סגנונות גלובליים לאפליקציה
+ * כולל התאמות לתצוגות שונות, אנימציות ומעברים
+ */
+
+/* ==================== הגדרות בסיס ==================== */
+
+/* הגדרות פונט גלובליות */
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* צבעים */
+  --primary-color: #1976d2;
+  --secondary-color: #dc004e;
+  --success-color: #2e7d32;
+  --warning-color: #ed6c02;
+  --error-color: #d32f2f;
+  
+  /* מעברים */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
 }
 
-/* עיצוב FullCalendar */
+/* ==================== סגנונות בסיסיים ==================== */
+
+body {
+  font-family: 'Assistant', sans-serif !important;
+  direction: rtl;
+}
+
+/* ==================== FullCalendar התאמות ==================== */
+
+/* הגדרות בסיס */
 .fc {
-  background-color: white;
+  direction: rtl;
+  font-family: 'Assistant', sans-serif;
+}
+
+/* סרגל כלים */
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 1.5em;
+  background-color: #f8f9fa;
   padding: 1rem;
   border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* כפתורים */
+.fc .fc-button {
+  background-color: var(--primary-color);
+  border: none;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all var(--transition-normal);
 }
 
-.fc-toolbar-title {
-  font-size: 1.2rem !important;
-}
-
-@media (max-width: 600px) {
-  .fc-toolbar-title {
-    font-size: 1rem !important;
-  }
-  
-  .fc-button {
-    padding: 0.2rem 0.4rem !important;
-    font-size: 0.8rem !important;
-  }
-  
-  .fc-view {
-    font-size: 0.8rem;
-  }
-}
-
-.fc-event {
-  cursor: pointer;
-  padding: 2px 4px;
-}
-
-.fc-event-title {
-  font-weight: 500;
-  font-size: 0.9em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* עיצוב דיאלוג */
-.MuiDialog-paper {
-  direction: rtl;
-  padding: 1rem;
-}
-
-.meeting-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-@media (max-width: 600px) {
-  .meeting-form {
-    gap: 0.8rem;
-  }
-  
-  .MuiDialog-paper {
-    margin: 0.5rem !important;
-    padding: 0.8rem;
-  }
-}
-
-/* עיצוב מותאם ל-SweetAlert */
-.my-swal-popup {
-  font-family: 'Rubik', sans-serif !important;
-  border-radius: 15px !important;
-  background: linear-gradient(145deg, #ffffff, #f5f5f5) !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
-}
-
-.my-swal-confirm-button {
-  background-color: #4caf50 !important;
-  border-radius: 8px !important;
-  font-family: 'Rubik', sans-serif !important;
-  font-weight: 500 !important;
-  padding: 10px 24px !important;
-}
-
-.my-swal-cancel-button {
-  background-color: #f44336 !important;
-  border-radius: 8px !important;
-  font-family: 'Rubik', sans-serif !important;
-  font-weight: 500 !important;
-  padding: 10px 24px !important;
-}
-
-.my-swal-close-button {
-  color: #666 !important;
-  font-size: 1.5rem !important;
-}
-
-.my-swal-content {
-  padding: 1.5rem !important;
-  font-size: 1.1rem !important;
-}
-
-/* אנימציה לכפתורים */
-.my-swal-confirm-button,
-.my-swal-cancel-button {
-  transition: transform 0.2s ease !important;
-}
-
-.my-swal-confirm-button:hover,
-.my-swal-cancel-button:hover {
-  transform: translateY(-2px) !important;
-}
-
-/* אייקונים בדיאלוג */
-.fas {
-  margin-left: 8px;
-  color: #666;
-}
-
-/* אנימציות למעברים */
-.fade-enter {
-  opacity: 0;
-  transform: scale(0.9);
-}
-
-.fade-enter-active {
-  opacity: 1;
-  transform: scale(1);
-  transition: opacity 300ms, transform 300ms;
-}
-
-/* עיצוב משופר ללוח השנה */
-.fc-event {
-  transition: transform 0.2s ease;
-  border: none !important;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.fc-event:hover {
-  transform: translateY(-2px);
+.fc .fc-button:hover {
+  background-color: #1565c0;
+  transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
-/* Modern SweetAlert Styles */
+.fc .fc-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:not(:disabled):active {
+  background-color: #0d47a1;
+}
+
+/* ==================== אירועים ==================== */
+
+/* סגנון בסיסי */
+.fc-event {
+  border-radius: 4px;
+  border: none;
+  padding: 2px 4px;
+  margin: 1px 0;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+/* אפקט hover */
+.fc-event:hover {
+  transform: scale(1.02);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* צבעים לפי צוותים */
+.team-1-event { background-color: #3498db; }
+.team-2-event { background-color: #e74c3c; }
+.team-3-event { background-color: #2ecc71; }
+.team-4-event { background-color: #9b59b6; }
+.team-5-event { background-color: #f1c40f; }
+.team-6-event { background-color: #1abc9c; }
+.team-7-event { background-color: #34495e; }
+.team-8-event { background-color: #95a5a6; }
+
+/* סטטוס אירועים */
+.status-confirmed {
+  border-right: 4px solid var(--success-color);
+}
+
+.status-pending {
+  border-right: 4px solid var(--warning-color);
+}
+
+.status-cancelled {
+  border-right: 4px solid var(--error-color);
+  opacity: 0.7;
+}
+
+/* ==================== אנימציות ==================== */
+
+/* אנימציית הוספת אירוע */
+.event-adding {
+  animation: addEvent var(--transition-normal);
+}
+
+@keyframes addEvent {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* אנימציית מחיקת אירוע */
+.event-deleting {
+  animation: deleteEvent var(--transition-normal);
+}
+
+@keyframes deleteEvent {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* אנימציית עריכת אירוע */
+.event-editing {
+  animation: editEvent var(--transition-normal);
+}
+
+@keyframes editEvent {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* ==================== התאמות למובייל ==================== */
+
+@media (max-width: 768px) {
+  .fc .fc-toolbar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .fc .fc-toolbar-title {
+    font-size: 1.2rem;
+  }
+
+  .fc .fc-button {
+    padding: 0.4em 0.65em;
+  }
+
+  .fc-event {
+    font-size: 0.85rem;
+  }
+}
+
+/* ==================== נגישות ==================== */
+
+/* מיקוד מקלדת */
+.fc-button:focus,
+.fc-event:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* ניגודיות גבוהה */
+@media (prefers-contrast: high) {
+  .fc-event {
+    border: 1px solid #000;
+  }
+}
+
+/* ==================== הדפסה ==================== */
+
+@media print {
+  .fc {
+    background: white;
+  }
+
+  .fc-toolbar-chunk:not(:first-child) {
+    display: none;
+  }
+
+  .fc-event {
+    break-inside: avoid;
+    color: black !important;
+    background: white !important;
+    border: 1px solid black !important;
+  }
+}
+
+/* ==================== SweetAlert2 התאמות ==================== */
+
 .modern-popup {
-  border-radius: 16px !important;
-  background: linear-gradient(145deg, #ffffff, #f8f9fa) !important;
-  box-shadow: 0 12px 24px rgba(0,0,0,0.1) !important;
-  padding: 24px !important;
-}
-
-.modern-title {
-  color: #2c3e50 !important;
-  font-size: 1.5rem !important;
-  font-weight: 600 !important;
-  margin-bottom: 16px !important;
-}
-
-.modern-content {
-  color: #34495e !important;
+  font-family: 'Assistant', sans-serif !important;
+  direction: rtl !important;
 }
 
 .modern-button {
-  border-radius: 12px !important;
-  padding: 12px 24px !important;
+  font-family: 'Assistant', sans-serif !important;
+  border-radius: 8px !important;
   font-weight: 500 !important;
+  padding: 8px 24px !important;
   transition: all 0.3s ease !important;
-  border: none !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
 }
 
-.edit-button {
-  background: linear-gradient(145deg, #3498db, #2980b9) !important;
-  color: white !important;
-}
-
-.edit-button:hover {
-  background: linear-gradient(145deg, #2980b9, #2573a7) !important;
-  transform: translateY(-2px) !important;
+.confirm-button {
+  background-color: var(--primary-color) !important;
 }
 
 .delete-button {
-  background: linear-gradient(145deg, #e74c3c, #c0392b) !important;
-  color: white !important;
-}
-
-.delete-button:hover {
-  background: linear-gradient(145deg, #c0392b, #a93226) !important;
-  transform: translateY(-2px) !important;
+  background-color: var(--error-color) !important;
 }
 
 .cancel-button {
-  background: linear-gradient(145deg, #95a5a6, #7f8c8d) !important;
-  color: white !important;
+  background-color: #6e7881 !important;
 }
 
-.cancel-button:hover {
-  background: linear-gradient(145deg, #7f8c8d, #6c7a7a) !important;
-  transform: translateY(-2px) !important;
-}
+/* ==================== תצוגת פרטי אירוע ==================== */
 
 .event-details {
-  background: #f8f9fa;
-  padding: 16px;
-  border-radius: 12px;
-  margin: 16px 0;
+  text-align: right;
+  padding: 1rem;
 }
 
-.event-details p {
-  margin: 8px 0;
-  color: #2c3e50;
+.event-detail-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.event-details i {
-  color: #3498db;
-  font-size: 1.1em;
+.participants-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-/* Event styles */
-.fc-event {
-  background: linear-gradient(145deg, #3498db, #2980b9) !important;
-  border: none !important;
-  border-radius: 8px !important;
-  padding: 4px 8px !important;
-  transition: all 0.3s ease !important;
+.participant {
+  background-color: #f0f0f0;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
 }
 
-.fc-event:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+/* עדכון לצבע טקסט בתצוגה החודשית */
+.fc-daygrid-event,
+.fc-timegrid-event {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
