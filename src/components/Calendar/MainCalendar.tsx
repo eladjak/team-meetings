@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Paper } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { Meeting } from '../../types';
 import ResourceManagement from './ResourceManagement';
 import CalendarView from './CalendarView';
@@ -9,6 +10,8 @@ import MeetingDialog from './MeetingDialog';
 import { MOCK_MEETINGS, TEAMS, ROOMS } from '../../constants';
 
 const MainCalendar: React.FC = () => {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const [meetings, setMeetings] = useState<Meeting[]>(MOCK_MEETINGS);
   const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -62,7 +65,18 @@ const MainCalendar: React.FC = () => {
         onAddClick={handleAddMeeting}
       />
 
-      <Paper sx={{ flex: 1, p: 2, overflow: 'hidden' }}>
+      <Paper sx={{
+        flex: 1,
+        p: 2,
+        overflow: 'hidden',
+        ...(isDark && {
+          background: 'rgba(10, 10, 26, 0.7)',
+          backdropFilter: 'blur(16px)',
+          border: '1px solid rgba(168, 85, 247, 0.18)',
+          boxShadow: '0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(168, 85, 247, 0.08)',
+          borderRadius: '16px',
+        }),
+      }}>
         {resourceState.view === 'calendar' && (
           <CalendarView 
             meetings={filteredMeetings}

@@ -8,6 +8,7 @@ import { createAppTheme } from '../theme';
 
 interface ThemeContextType {
   mode: 'light' | 'dark';
+  isDarkMode: boolean;
   toggleTheme: () => void;
   theme: Theme;
 }
@@ -17,7 +18,8 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [mode, setMode] = useState<'light' | 'dark'>(() => {
     const savedMode = localStorage.getItem('theme_mode');
-    return (savedMode === 'dark' ? 'dark' : 'light');
+    // Default to dark mode for the facelift
+    return (savedMode === 'light' ? 'light' : 'dark');
   });
 
   const theme = React.useMemo(() => {
@@ -32,6 +34,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const value = React.useMemo(() => ({
     mode,
+    isDarkMode: mode === 'dark',
     toggleTheme: () => setMode(prevMode => prevMode === 'light' ? 'dark' : 'light'),
     theme
   }), [mode, theme]);
