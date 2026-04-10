@@ -3,7 +3,7 @@ import { Meeting, Team, Room } from '../types';
 
 // Import and re-export specific constants
 import { PARTICIPANTS, MEETING_TYPES } from './resources';
-import { MEETING_STATUSES } from './meetings';
+import { MEETING_STATUSES } from '../types/meetings';
 import { TEAMS } from './teams';
 import { ROOMS } from './rooms';
 

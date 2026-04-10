@@ -38,13 +38,11 @@ export const PARTICIPANTS = [
   // ... עוד משתתפים
 ];
 
-export const MEETING_STATUS_DISPLAY = {
-  [MeetingStatus.DRAFT]: 'טיוטה',
-  [MeetingStatus.PENDING]: 'ממתין',
-  [MeetingStatus.CONFIRMED]: 'מאושר',
-  [MeetingStatus.CANCELLED]: 'בוטל',
-  [MeetingStatus.COMPLETED]: 'הושלם',
-  [MeetingStatus.RESCHEDULED]: 'נדחה'
+export const MEETING_STATUS_DISPLAY: Record<string, string> = {
+  draft: 'טיוטה',
+  pending: 'ממתין',
+  confirmed: 'מאושר',
+  cancelled: 'בוטל',
+  completed: 'הושלם',
+  rescheduled: 'נדחה',
 } as const;
-
-export type MeetingStatus = keyof typeof MEETING_STATUS_DISPLAY; 
