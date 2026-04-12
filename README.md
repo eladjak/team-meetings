@@ -52,3 +52,8 @@ npm run build
 
 ## 📄 רישיון
 MIT
+---
+
+⭐ If you find this useful, please star the repo!
+
+*[README בעברית](README.he.md)*
